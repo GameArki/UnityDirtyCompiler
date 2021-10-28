@@ -13,12 +13,11 @@ namespace FinalFrame.EditorTool {
     public class DirtyScriptsCompilationTool {
 
         static EditorCompilationAsmCacheModelSo asmCacheModel;
-        static Queue<Action> dirtyHandleQueue = new Queue<Action>();
+        static volatile Queue<Action> dirtyHandleQueue = new Queue<Action>();
 
         static DirtyScriptsCompilationTool() {
             Reset();
             EditorApplication.update += Execute;
-            UnityEngine.Debug.Log("REST");
         }
 
         [MenuItem("Tools/DirtyScriptsCompilation/Reset")]
@@ -52,7 +51,10 @@ namespace FinalFrame.EditorTool {
             }
 
             while (dirtyHandleQueue.Count > 0) {
-                dirtyHandleQueue.Dequeue()();
+                Action action = dirtyHandleQueue.Dequeue();
+                if (action != null) {
+                    action.Invoke();
+                }
             }
 
         }
@@ -121,7 +123,7 @@ namespace FinalFrame.EditorTool {
                 EditorUtility.CompileCSharp(asm.sourceFiles, asm.allReferences, asm.defines, asm.outputPath);
                 UnityEngine.Debug.Log($"编译 asm: {asm.name}, sourceFilesCount: {asm.sourceFiles.Length.ToString()}, refsCount: {asm.allReferences.Length.ToString()}, outPath: {asm.outputPath}");
 
-                invokeMethod.Invoke(invoker, new object[] {asm.outputPath, new CompilerMessage[0] });
+                invokeMethod.Invoke(invoker, new object[] { asm.outputPath, new CompilerMessage[0] });
 
             }
 
@@ -135,6 +137,7 @@ namespace FinalFrame.EditorTool {
             }
 
             // 清空 DirtyScripts
+            dirtyHandleQueue.Clear();
             model.CleanDirtyScripts();
 
         }
