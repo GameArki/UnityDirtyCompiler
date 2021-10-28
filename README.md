@@ -9,7 +9,7 @@
 支持Unity2019.4
 
 ### >> 使用说明
-1. 下载源码 DirtyScriptsCompilationTool.zip
+1. 下载zip源码
 2. 将源码解压到工程的Assets目录里的任意位置
 3. 编译脚本时，使用CTRL+T进行刷新即可
 
