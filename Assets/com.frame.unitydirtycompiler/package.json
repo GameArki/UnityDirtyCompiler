@@ -1,0 +1,23 @@
+{
+  "name": "com.frame.unitydirtycompiler",
+  "version": "0.0.1",
+  "description": "Unity 脏脚本编译工具",
+  "displayName": "JackFrame.UnityDirtyCompiler",
+  "unity": "2019.4",
+  "author": {
+    "name": "杰克有茶",
+    "email": "chenwansal1@163.com",
+    "url": "http://www.utea.fun"
+  },
+  "changelogUrl": "",
+  "dependencies": {},
+  "documentationUrl": "",
+  "hideInEditor": false,
+  "keywords": [
+    "jackframe"
+  ],
+  "license": "",
+  "licensesUrl": "",
+  "samples": [],
+  "unityRelease": "16f1"
+}
